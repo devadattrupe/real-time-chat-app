@@ -57,23 +57,11 @@ export default function ChatPage() {
     if (wsManager.current && content.trim()) {
       wsManager.current.stopTyping(username)
 
-      const success = wsManager.current.sendMessage({
+      wsManager.current.sendMessage({
         content: content.trim(),
         sender: username,
         type: "message",
       })
-
-      if (success) {
-        const localMessage: ChatMessage = {
-          id: crypto.randomUUID(),
-          content: content.trim(),
-          sender: username,
-          timestamp: new Date().toISOString(),
-          type: "message",
-          status: "sent",
-        }
-        setMessages((prev) => [...prev, localMessage])
-      }
     }
   }
 
